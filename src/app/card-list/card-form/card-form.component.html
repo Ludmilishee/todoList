@@ -1,12 +1,31 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<h2 mat-dialog-title>Редактирование задачи</h2>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
   <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="data.animal">
+    <mat-label>Название</mat-label>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Описание</mat-label>
+    <input matInput [(ngModel)]="data.description">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Дата</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="data.date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="time" placeholder="Время" [(ngModel)]="time">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onNoClick()">Отмена</button>
+  <button mat-button
+          [mat-dialog-close]="data"
+          dkFocusInitial
+          (click)="onOkClick()"
+  >ОК</button>
 </div>

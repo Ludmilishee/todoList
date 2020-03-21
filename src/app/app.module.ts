@@ -12,6 +12,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CardFormComponent } from './card-list/card-form/card-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
@@ -29,9 +35,11 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatSlideToggleModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [ MatDatepickerModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

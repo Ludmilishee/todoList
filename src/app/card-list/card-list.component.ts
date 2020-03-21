@@ -42,7 +42,7 @@ export class CardListComponent implements OnInit {
   onCardEdit(card: Card, e: Event) {
     console.log(card);
     e.stopImmediatePropagation();
-    this.openDialog();
+    this.openCardForm(card);
   }
 
   onCardDelete(card: Card, e: Event) {
@@ -59,14 +59,17 @@ export class CardListComponent implements OnInit {
     this.isEditMode = checked;
   }
 
-  private openDialog(): void {
+  private openCardForm(card: Card) {
     const dialogRef = this.dialog.open(CardFormComponent, {
       width: '250px',
-      data: {name: 'a', animal: 'b'}
+      data: { ...card }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed ' + result);
+      if (result) {
+        const foundIndex = this.cards.findIndex(card => card.id === result.id);
+        this.cards.splice(foundIndex, 1, result);
+      }
     });
   }
 }
