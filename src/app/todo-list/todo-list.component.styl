@@ -1,3 +1,41 @@
+@media (min-width: 1200px) {
+  :host {
+    width: 700px;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1199px) {
+  :host {
+    width: 600px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 799px) {
+  :host {
+    width: 550px;
+  }
+}
+
+@media (max-width: 600px) {
+  :host {
+    width: calc(100% - 20px);
+  }
+
+  mat-panel-title {
+    display: block;
+    align-self: center;
+    width: calc(100% - 260px);
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px;
+    text-overflow: ellipsis;
+  }
+}
+
+:host {
+  display: block;
+}
+
 mat-panel-title,
 mat-panel-description {
   align-items: center;
@@ -7,8 +45,10 @@ mat-panel-description {
   justify-content: flex-end;
 }
 
-.edit-mode {
-  float: right;
+.list-edit-panel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .edit-panel {

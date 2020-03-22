@@ -1,19 +1,20 @@
-<button color="primary"
-        title="Создать задачу"
-        mat-raised-button
-        mat-icon-button
-        (click)="onToDoAdd()"
->
-  <mat-icon>add</mat-icon>
-</button>
+<div class="list-edit-panel">
+  <button color="primary"
+          title="Создать задачу"
+          mat-raised-button
+          mat-icon-button
+          (click)="onToDoAdd()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
 
-<mat-slide-toggle class="edit-mode"
-                  color="primary"
-                  [checked]="isEditMode"
-                  (change)="onEditModeChange($event.checked)"
->
-  Режим редактирования
-</mat-slide-toggle>
+  <mat-slide-toggle color="primary"
+                    [checked]="isEditMode"
+                    (change)="onEditModeChange($event.checked)"
+  >
+    Режим редактирования
+  </mat-slide-toggle>
+</div>
 
 <div cdkDropList
      (cdkDropListDropped)="onToDoDrop($event)"
