@@ -6,11 +6,13 @@
            formControlName="name" id="name"
     >
   </mat-form-field>
+  <ng-container *ngTemplateOutlet="error; context: { field: 'name', label: 'Название' }"></ng-container>
 
   <mat-form-field>
     <mat-label>Описание</mat-label>
     <input matInput formControlName="description" id="description">
   </mat-form-field>
+  <ng-container *ngTemplateOutlet="error; context: { field: 'description', label: 'Описание' }"></ng-container>
 
   <mat-form-field>
     <mat-label>Дата</mat-label>
@@ -18,16 +20,30 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <ng-container *ngTemplateOutlet="error; context: { field: 'date', label: 'Дата' }"></ng-container>
 
   <mat-form-field>
-    <input matInput type="time" placeholder="Время" formControlName="time">
+    <mat-label>Время</mat-label>
+    <input matInput type="time" formControlName="time">
   </mat-form-field>
+  <ng-container *ngTemplateOutlet="error; context: { field: 'time', label: 'Время' }"></ng-container>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Отмена</button>
   <button mat-button
           [mat-dialog-close]="data"
+          [disabled]="!form.valid"
           dkFocusInitial
           (click)="onOkClick()"
-  >ОК</button>
+  >
+    ОК
+  </button>
 </div>
+
+<ng-template #error let-field="field">
+  <div *ngIf="f[field].errors" class="invalid-feedback">
+    <p class="validation-error mat-small" *ngIf="f[field].errors.required">
+      Поле не должно быть пустым
+    </p>
+  </div>
+</ng-template>

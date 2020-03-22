@@ -1,4 +1,4 @@
-export interface Card {
+export interface ToDo {
   id: number;
   name: string;
   description: string;

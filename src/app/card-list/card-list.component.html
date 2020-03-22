@@ -9,6 +9,7 @@
 
 <mat-slide-toggle class="edit-mode"
                   color="primary"
+                  [checked]="isEditMode"
                   (change)="onEditModeChange($event.checked)"
 >
   Режим редактирования
