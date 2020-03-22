@@ -2,22 +2,26 @@
         title="Создать задачу"
         mat-raised-button
         mat-icon-button
+        (click)="onCardAdd()"
 >
   <mat-icon>add</mat-icon>
 </button>
 
-<mat-slide-toggle color="primary"
+<mat-slide-toggle class="edit-mode"
+                  color="primary"
                   (change)="onEditModeChange($event.checked)"
 >
   Режим редактирования
 </mat-slide-toggle>
 
-<div class="example-list"
-     cdkDropList
+<div cdkDropList
      (cdkDropListDropped)="onCardDrop($event)"
 >
   <mat-accordion displayMode="flat">
-    <mat-expansion-panel *ngFor="let card of cards" cdkDrag>
+    <mat-expansion-panel *ngFor="let card of cards"
+                         cdkDrag
+                         [tlCardState]="card.date"
+    >
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ card.name }}
