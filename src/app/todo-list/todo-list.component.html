@@ -2,7 +2,7 @@
         title="Создать задачу"
         mat-raised-button
         mat-icon-button
-        (click)="onCardAdd()"
+        (click)="onToDoAdd()"
 >
   <mat-icon>add</mat-icon>
 </button>
@@ -16,38 +16,38 @@
 </mat-slide-toggle>
 
 <div cdkDropList
-     (cdkDropListDropped)="onCardDrop($event)"
+     (cdkDropListDropped)="onToDoDrop($event)"
 >
   <mat-accordion displayMode="flat">
-    <mat-expansion-panel *ngFor="let card of cards"
+    <mat-expansion-panel *ngFor="let todo of toDos"
                          cdkDrag
-                         [tlCardState]="card.date"
+                         [tlTodoState]="todo.date"
     >
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{ card.name }}
+          {{ todo.name }}
         </mat-panel-title>
         <mat-panel-description>
-            {{ card.date | date:'dd.MM.yyyy HH:mm' }}
+            {{ todo.date | date:'dd.MM.yyyy HH:mm' }}
 
             <div class="edit-panel" [ngClass]="{ 'hidden': !isEditMode }">
               <button title="Редактировать задачу"
                       mat-icon-button
-                      (click)="onCardEdit(card, $event)"
+                      (click)="onToDoEdit(todo, $event)"
               >
                 <mat-icon>edit</mat-icon>
               </button>
               <button title="Удалить задачу"
                       color="warn"
                       mat-icon-button
-                      (click)="onCardDelete(card, $event)"
+                      (click)="onToDoDelete(todo, $event)"
               >
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      {{ card.description }}
+      {{ todo.description }}
     </mat-expansion-panel>
   </mat-accordion>
 </div>

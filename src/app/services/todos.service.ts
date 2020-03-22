@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToDo } from '../card-list/shared/card.model';
+import { ToDo } from '../todo-list/shared/todo.model';
 import { of } from 'rxjs';
 
 @Injectable({

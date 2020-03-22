@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ToDo } from './shared/card.model';
+import { ToDo } from './shared/todo.model';
 import { MatDialog } from '@angular/material/dialog';
-import { CardFormComponent } from './card-form/card-form.component';
+import { TodoFormComponent } from './todo-form/todo-form.component';
 import { ToDosService } from '../services/todos.service';
 import { takeUntil } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 
 @Component({
-  selector: 'tl-card-list',
-  templateUrl: './card-list.component.html',
-  styleUrls: ['./card-list.component.styl'],
+  selector: 'tl-todo-list',
+  templateUrl: './todo-list.component.html',
+  styleUrls: ['./todo-list.component.styl'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardListComponent implements OnInit, OnDestroy {
+export class TodoListComponent implements OnInit, OnDestroy {
 
-  cards: ToDo[];
+  toDos: ToDo[];
   isEditMode = true;
 
   private unSubscriber$: ReplaySubject<any> = new ReplaySubject<any>(1);
@@ -29,11 +29,11 @@ export class CardListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.toDosService.getToDoData()
       .pipe(takeUntil(this.unSubscriber$))
-      .subscribe((data: ToDo[]) => this.cards = data);
+      .subscribe((data: ToDo[]) => this.toDos = data);
   }
 
-  onCardAdd() {
-    this.openCardForm({
+  onToDoAdd() {
+    this.openToDoForm({
       id: 0,
       name: 'Новая задача',
       description: '',
@@ -41,49 +41,49 @@ export class CardListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onCardEdit(card: ToDo, e: Event) {
+  onToDoEdit(toDo: ToDo, e: Event) {
     e.stopImmediatePropagation();
-    this.openCardForm(card);
+    this.openToDoForm(toDo);
   }
 
-  onCardDelete(card: ToDo, e: Event) {
+  onToDoDelete(toDo: ToDo, e: Event) {
     e.stopImmediatePropagation();
-    this.toDosService.deleteToDo(card.id)
+    this.toDosService.deleteToDo(toDo.id)
       .pipe(takeUntil(this.unSubscriber$))
-      .subscribe((todo: ToDo) => {
-        this.cards = this.cards.filter(c => c.id !== todo.id);
+      .subscribe((res: ToDo) => {
+        this.toDos = this.toDos.filter(c => c.id !== res.id);
       });
   }
 
-  onCardDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
+  onToDoDrop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.toDos, event.previousIndex, event.currentIndex);
   }
 
   onEditModeChange(checked: boolean) {
     this.isEditMode = checked;
   }
 
-  private openCardForm(card: ToDo) {
-    const dialogRef = this.dialog.open(CardFormComponent, {
+  private openToDoForm(toDo: ToDo) {
+    const dialogRef = this.dialog.open(TodoFormComponent, {
       width: '250px',
-      data: { ...card }
+      data: { ...toDo }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const foundIndex = this.cards.findIndex(c => c.id === result.id);
+        const foundIndex = this.toDos.findIndex(c => c.id === result.id);
 
         if (foundIndex === -1) {
           this.toDosService.addToDo(result)
             .pipe(takeUntil(this.unSubscriber$))
-            .subscribe((todo: ToDo) => {
-              this.cards.unshift(todo);
+            .subscribe((res: ToDo) => {
+              this.toDos.unshift(res);
             });
         } else {
           this.toDosService.editToDo(result)
             .pipe(takeUntil(this.unSubscriber$))
-            .subscribe((todo: ToDo) => {
-              this.cards.splice(foundIndex, 1, todo);
+            .subscribe((res: ToDo) => {
+              this.toDos.splice(foundIndex, 1, res);
             });
         }
         this.cd.detectChanges();

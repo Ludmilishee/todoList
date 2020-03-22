@@ -1,22 +1,22 @@
 import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { ToDo } from '../shared/card.model';
+import { ToDo } from '../shared/todo.model';
 import { formatDate } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'tl-card-form',
-  templateUrl: './card-form.component.html',
-  styleUrls: ['./card-form.component.styl'],
+  selector: 'tl-todo-form',
+  templateUrl: './todo-form.component.html',
+  styleUrls: ['./todo-form.component.styl'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardFormComponent implements OnInit {
+export class TodoFormComponent implements OnInit {
 
   time: string;
   form: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<CardFormComponent>,
+    public dialogRef: MatDialogRef<TodoFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ToDo
   ) {}
 

@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[tlCardState]'
+  selector: '[tlTodoState]'
 })
-export class CardStateDirective implements OnInit {
+export class TodoStateDirective implements OnInit {
 
-  @Input('tlCardState') date: Date;
+  @Input('tlTodoState') date: Date;
 
   private readonly WARNING_STATE = '#dddbff';
   private readonly CRITICAL_STATE = '#ffc6c6';
@@ -19,13 +19,13 @@ export class CardStateDirective implements OnInit {
     const dateDiff = Number(this.date) - Number(this.TODAY);
 
     if (dateDiff > 0 && dateDiff <= 3 * this.DAY_IN_MSECS) {
-      this.setCardState(this.WARNING_STATE);
+      this.setTodoState(this.WARNING_STATE);
     } else if (dateDiff < 0) {
-      this.setCardState(this.CRITICAL_STATE);
+      this.setTodoState(this.CRITICAL_STATE);
     }
   }
 
-  private setCardState(color: string) {
+  private setTodoState(color: string) {
     this.el.nativeElement.style.backgroundColor = color;
   }
 }
