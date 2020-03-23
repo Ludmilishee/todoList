@@ -21,7 +21,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   private unSubscriber$: ReplaySubject<any> = new ReplaySubject<any>(1);
 
   constructor(
-    private dialog: MatDialog,
+    public dialog: MatDialog,
     private toDosService: ToDosService,
     private cd: ChangeDetectorRef
   ) { }
